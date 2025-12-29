@@ -19,6 +19,7 @@ A beautiful Chrome extension for navigating long conversations in ChatGPT, Claud
 
 ## 🖼️ Screenshots
 
+<!-- Add your screenshots here -->
 ![AI Chat Navigator Screenshot](https://res.cloudinary.com/dvfmwmmna/image/upload/v1767024058/CleanShot-29-12-2025_at_7_.00.10_2x_bdq7pz.png)
 
 ## 📦 Installation
