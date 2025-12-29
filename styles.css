@@ -1,0 +1,580 @@
+/* ChatGPT Query Navigator - Premium Visual Design */
+
+/* ============================================
+   MAIN CONTAINER - Sleek Floating Panel
+   ============================================ */
+#chatgpt-navigator-container {
+    position: fixed;
+    right: 20px;
+    top: 100px;
+    bottom: 100px;
+    width: 280px;
+    background: linear-gradient(165deg,
+            rgba(25, 25, 35, 0.97) 0%,
+            rgba(15, 15, 25, 0.98) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.5),
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================
+   HEADER SECTION
+   ============================================ */
+.nav-header {
+    padding: 20px;
+    background: linear-gradient(135deg,
+            rgba(16, 163, 127, 0.2) 0%,
+            rgba(16, 163, 127, 0.05) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+.nav-header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.nav-header-title svg {
+    width: 24px;
+    height: 24px;
+    fill: #10a37f;
+}
+
+.nav-header-title h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.3px;
+}
+
+.nav-header-stats {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.nav-stat-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.nav-stat-dot.user {
+    background: linear-gradient(135deg, #10a37f, #1ed9a4);
+    box-shadow: 0 0 10px rgba(16, 163, 127, 0.6);
+}
+
+.nav-stat-dot.assistant {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* ============================================
+   FILTER TABS
+   ============================================ */
+.nav-tabs {
+    display: flex;
+    padding: 12px 16px;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.nav-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    color: rgba(255, 255, 255, 0.6);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.nav-tab svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    opacity: 0.7;
+}
+
+.nav-tab span {
+    display: block;
+}
+
+.nav-tab:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.nav-tab.active {
+    background: linear-gradient(135deg, rgba(16, 163, 127, 0.3) 0%, rgba(16, 163, 127, 0.15) 100%);
+    border-color: rgba(16, 163, 127, 0.5);
+    color: #10a37f;
+    box-shadow: 0 4px 15px rgba(16, 163, 127, 0.2);
+}
+
+.nav-tab.active svg {
+    opacity: 1;
+}
+
+/* Tab filter specific colors */
+.nav-tab[data-filter="user"].active {
+    background: linear-gradient(135deg, rgba(16, 163, 127, 0.3) 0%, rgba(16, 163, 127, 0.15) 100%);
+    border-color: rgba(16, 163, 127, 0.5);
+    color: #10a37f;
+    box-shadow: 0 4px 15px rgba(16, 163, 127, 0.2);
+}
+
+.nav-tab[data-filter="assistant"].active {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.15) 100%);
+    border-color: rgba(139, 92, 246, 0.5);
+    color: #a78bfa;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+}
+
+.nav-tab[data-filter="all"].active {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0.15) 100%);
+    border-color: rgba(99, 102, 241, 0.5);
+    color: #a5b4fc;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+}
+
+/* ============================================
+   MARKERS WRAPPER - Scrollable Area
+   ============================================ */
+.nav-markers-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.nav-markers-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.nav-markers-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.nav-markers-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+
+.nav-markers-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ============================================
+   NAVIGATION MARKERS - Beautiful Cards
+   ============================================ */
+.nav-marker {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+/* User query markers - Vibrant green theme */
+.nav-marker.user {
+    background: linear-gradient(135deg,
+            rgba(16, 163, 127, 0.15) 0%,
+            rgba(16, 163, 127, 0.08) 100%);
+    border: 1px solid rgba(16, 163, 127, 0.25);
+}
+
+.nav-marker.user:hover {
+    background: linear-gradient(135deg,
+            rgba(16, 163, 127, 0.25) 0%,
+            rgba(16, 163, 127, 0.15) 100%);
+    border-color: rgba(16, 163, 127, 0.5);
+    transform: translateX(-4px);
+    box-shadow:
+        0 8px 25px rgba(16, 163, 127, 0.2),
+        0 0 0 1px rgba(16, 163, 127, 0.3);
+}
+
+.nav-marker.user.active {
+    background: linear-gradient(135deg,
+            rgba(16, 163, 127, 0.35) 0%,
+            rgba(16, 163, 127, 0.2) 100%);
+    border-color: #10a37f;
+    box-shadow:
+        0 0 0 3px rgba(16, 163, 127, 0.3),
+        0 10px 30px rgba(16, 163, 127, 0.25);
+}
+
+/* AI response markers - Subtle purple theme */
+.nav-marker.assistant {
+    background: linear-gradient(135deg,
+            rgba(139, 92, 246, 0.1) 0%,
+            rgba(139, 92, 246, 0.05) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.nav-marker.assistant:hover {
+    background: linear-gradient(135deg,
+            rgba(139, 92, 246, 0.18) 0%,
+            rgba(139, 92, 246, 0.1) 100%);
+    border-color: rgba(139, 92, 246, 0.35);
+    transform: translateX(-4px);
+    box-shadow:
+        0 8px 25px rgba(139, 92, 246, 0.15),
+        0 0 0 1px rgba(139, 92, 246, 0.2);
+}
+
+.nav-marker.assistant.active {
+    background: linear-gradient(135deg,
+            rgba(139, 92, 246, 0.25) 0%,
+            rgba(139, 92, 246, 0.15) 100%);
+    border-color: #8b5cf6;
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.25),
+        0 10px 30px rgba(139, 92, 246, 0.2);
+}
+
+/* Marker icon */
+.nav-marker-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nav-marker.user .nav-marker-icon {
+    background: linear-gradient(135deg, #10a37f, #0d8a6a);
+    box-shadow: 0 4px 12px rgba(16, 163, 127, 0.35);
+}
+
+.nav-marker.assistant .nav-marker-icon {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.nav-marker-icon svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
+}
+
+/* Marker content */
+.nav-marker-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.nav-marker-type {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.nav-marker.user .nav-marker-type {
+    color: #10a37f;
+}
+
+.nav-marker.assistant .nav-marker-type {
+    color: #a78bfa;
+}
+
+.nav-marker-preview {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Marker number badge */
+.nav-marker-number {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ============================================
+   TOGGLE BUTTON - Floating Action Button
+   ============================================ */
+#chatgpt-nav-toggle {
+    position: fixed;
+    right: 20px;
+    top: 50px;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #10a37f 0%, #0d8a6a 100%);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 8px 25px rgba(16, 163, 127, 0.4),
+        0 4px 10px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#chatgpt-nav-toggle:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow:
+        0 12px 35px rgba(16, 163, 127, 0.5),
+        0 6px 15px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#chatgpt-nav-toggle:active {
+    transform: scale(0.98);
+}
+
+#chatgpt-nav-toggle svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* ============================================
+   KEYBOARD SHORTCUTS FOOTER
+   ============================================ */
+.nav-footer {
+    padding: 14px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.nav-shortcut-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.nav-shortcut-row:last-child {
+    margin-bottom: 0;
+}
+
+.nav-shortcut-keys {
+    display: flex;
+    gap: 4px;
+}
+
+.nav-shortcut-key {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', monospace;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.nav-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-empty-state svg {
+    width: 48px;
+    height: 48px;
+    fill: rgba(255, 255, 255, 0.2);
+    margin-bottom: 16px;
+}
+
+.nav-empty-state p {
+    font-size: 14px;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.5;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes markerSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.nav-marker {
+    animation: markerSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.nav-marker:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.nav-marker:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.nav-marker:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.nav-marker:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.nav-marker:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.nav-marker:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+.nav-marker:nth-child(7) {
+    animation-delay: 0.35s;
+}
+
+.nav-marker:nth-child(8) {
+    animation-delay: 0.4s;
+}
+
+/* Pulse animation for active marker */
+@keyframes activePulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 3px rgba(16, 163, 127, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px rgba(16, 163, 127, 0.15);
+    }
+}
+
+.nav-marker.user.active {
+    animation: activePulse 2s ease-in-out infinite;
+}
+
+@keyframes activePulseAssistant {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.12);
+    }
+}
+
+.nav-marker.assistant.active {
+    animation: activePulseAssistant 2s ease-in-out infinite;
+}
+
+/* ============================================
+   RESPONSIVE - Collapse on narrow screens
+   ============================================ */
+@media (max-width: 1400px) {
+    #chatgpt-navigator-container {
+        width: 260px;
+    }
+
+    .nav-tab span {
+        display: none;
+    }
+
+    .nav-tab {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 1200px) {
+    #chatgpt-navigator-container {
+        width: 220px;
+    }
+
+    .nav-marker-preview {
+        font-size: 12px;
+        -webkit-line-clamp: 1;
+    }
+
+    .nav-header-stats {
+        flex-direction: column;
+        gap: 6px;
+    }
+}
