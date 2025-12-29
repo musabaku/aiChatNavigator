@@ -25,9 +25,39 @@
         claude: {
             name: 'Claude',
             hostPatterns: ['claude.ai'],
-            messageWrapper: '[data-testid="user-message"], [data-testid="assistant-message"], [class*="human-turn"], [class*="assistant-turn"]',
+            // Claude conversation structure - detect message containers
+            messageWrapper: '[data-testid*="human"], [data-testid*="assistant"], [data-testid*="user"], [class*="human"], [class*="claude-message"], .prose, [data-is-streaming]',
             getRole: (el) => {
-                if (el.matches('[data-testid="user-message"], [class*="human-turn"], [class*="human"], [class*="user"]')) return 'user';
+                // Check element and parents for role indicators
+                const checkForRole = (element) => {
+                    if (!element) return null;
+                    const testId = element.getAttribute('data-testid') || '';
+                    const className = element.className || '';
+
+                    if (testId.includes('human') || testId.includes('user') ||
+                        className.includes('human') || className.includes('User')) {
+                        return 'user';
+                    }
+                    if (testId.includes('assistant') || testId.includes('claude') ||
+                        className.includes('assistant') || className.includes('claude')) {
+                        return 'assistant';
+                    }
+                    return null;
+                };
+
+                // Check self
+                let role = checkForRole(el);
+                if (role) return role;
+
+                // Check up to 5 parent levels
+                let parent = el.parentElement;
+                for (let i = 0; i < 5 && parent; i++) {
+                    role = checkForRole(parent);
+                    if (role) return role;
+                    parent = parent.parentElement;
+                }
+
+                // Default based on position or content
                 return 'assistant';
             }
         },
